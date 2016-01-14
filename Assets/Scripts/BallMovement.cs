@@ -7,13 +7,7 @@ public class BallMovement : MonoBehaviour
     public float rotationSpeed = .1f;
     public float movementSpeed = 100f;
     public float jumpSpeed = 15f;
-
-    // Use this for initialization
-    void Start()
-    {
-
-    }
-
+    
     // Update is called once per frame
     void Update()
     {
@@ -22,6 +16,15 @@ public class BallMovement : MonoBehaviour
         float accelerationX = Input.GetAxis("Horizontal");
 
         Vector3 direction = Camera.main.transform.TransformDirection(new Vector3(accelerationX, 0f, accelerationZ));
-        rigidbody.AddForce(direction * movementSpeed);
+        direction.y = 0.0f;
+        rigidbody.AddForce(direction * movementSpeed * Time.deltaTime);
+
+        CharacterController controller = GetComponent<CharacterController>();
+        if (controller.isGrounded)
+        {
+            Debug.Log("Touchdown");
+            rigidbody.AddForce(new Vector3(0, jumpSpeed, 0), ForceMode.Impulse);
+        }
+        // controller.Move(Physics.gravity + rigidbody.velocity);
     }
 }
