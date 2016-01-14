@@ -6,10 +6,7 @@ public class CameraMovement : MonoBehaviour {
 	public GameObject ball;
 	public Vector3 cameraOffset;
 
-	// Use this for initialization
-	void Start () {
-	
-	}
+    public float rotationSpeed = 5f;
 	
 	// Update is called once per frame
 	void Update () {
@@ -20,6 +17,6 @@ public class CameraMovement : MonoBehaviour {
         transform.position = ball.transform.position + offset;
 
         float mouseDx = Input.GetAxis("Mouse X");
-        transform.RotateAround(ball.transform.position, Vector3.up, mouseDx);
+        transform.RotateAround(ball.transform.position, Vector3.up, mouseDx * rotationSpeed * Time.deltaTime * Mathf.Rad2Deg);
     }
 }
