@@ -6,25 +6,42 @@ public class BallMovement : MonoBehaviour
 
     public float rotationSpeed = .1f;
     public float movementSpeed = 100f;
-    public float jumpSpeed = 15f;
-    
+    public float jumpSpeed = 20f;
+
+    private float distToGround = 0.0f;
+    public float distToGroundOffset = 0.1f;
+
+    void Start()
+    {
+        distToGround = GetComponent<SphereCollider>().bounds.extents.y + distToGroundOffset;
+    }
+
     // Update is called once per frame
     void Update()
     {
-        Rigidbody rigidbody = GetComponent<Rigidbody>();
-        float accelerationZ = Input.GetAxis("Vertical");
-        float accelerationX = Input.GetAxis("Horizontal");
-
-        Vector3 direction = Camera.main.transform.TransformDirection(new Vector3(accelerationX, 0f, accelerationZ));
-        direction.y = 0.0f;
-        rigidbody.AddForce(direction * movementSpeed * Time.deltaTime);
-
-        CharacterController controller = GetComponent<CharacterController>();
-        if (controller.isGrounded)
+        if (isGrounded())
         {
-            Debug.Log("Touchdown");
-            rigidbody.AddForce(new Vector3(0, jumpSpeed, 0), ForceMode.Impulse);
+            Rigidbody rigidbody = GetComponent<Rigidbody>();
+            
+            float torqueX = Input.GetAxis("Vertical");
+            float torqueY = 0f;
+            float torqueZ = -Input.GetAxis("Horizontal");
+
+            Vector3 torque = new Vector3(torqueX, torqueY, torqueZ);
+
+            torque = Camera.main.transform.TransformDirection(torque);
+            rigidbody.AddTorque(torque * movementSpeed * Time.deltaTime);
+
+            // TODO: Change the jump impulse to a more reliable way of jumping.
+            if (Input.GetButton("Jump"))
+            {
+                rigidbody.AddForce(Vector3.up * jumpSpeed, ForceMode.Impulse);
+            }
         }
-        // controller.Move(Physics.gravity + rigidbody.velocity);
+    }
+
+    private bool isGrounded()
+    {
+        return Physics.Raycast(transform.position, -Vector3.up, distToGround);
     }
 }

@@ -171,11 +171,11 @@ GameObject:
   - 33: {fileID: 457060195}
   - 135: {fileID: 457060194}
   - 23: {fileID: 457060193}
+  - 54: {fileID: 457060198}
   - 143: {fileID: 457060197}
   - 114: {fileID: 457060199}
-  - 54: {fileID: 457060198}
   m_Layer: 0
-  m_Name: Sphere
+  m_Name: PlayerBall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -191,7 +191,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_Materials:
-  - {fileID: 2100000, guid: 77c6754e5ff154121b272c46c797fb8c, type: 2}
+  - {fileID: 2100000, guid: 2253e796b88daa940b27cf6e4f4479fe, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1
@@ -233,7 +233,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 457060192}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -9.47286, y: 25.94298, z: 41.63936}
+  m_LocalPosition: {x: -9.47286, y: 10, z: 41.63936}
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_Children: []
   m_Father: {fileID: 0}
@@ -263,7 +263,7 @@ Rigidbody:
   m_GameObject: {fileID: 457060192}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 1
+  m_Drag: 0
   m_AngularDrag: 5
   m_UseGravity: 1
   m_IsKinematic: 0
@@ -281,9 +281,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e955750394b4465da9b124f2cc63f20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationSpeed: 0.1
+  rotationSpeed: 10
   movementSpeed: 2000
   jumpSpeed: 15
+  distToGroundOffset: 0.1
 --- !u!1 &897634786
 GameObject:
   m_ObjectHideFlags: 0
@@ -381,7 +382,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1291453173}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 20, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 386282490}
