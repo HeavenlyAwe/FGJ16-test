@@ -18,19 +18,20 @@ public class BallMovement : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
+	{
+		Rigidbody rigidbody = GetComponent<Rigidbody>();
+		
+		float torqueX = Input.GetAxis("Vertical");
+		float torqueY = 0f;
+		float torqueZ = -Input.GetAxis("Horizontal");
+		
+		Vector3 torque = new Vector3(torqueX, torqueY, torqueZ);
+		
+		torque = Camera.main.transform.TransformDirection(torque);
+		rigidbody.AddTorque(torque * movementSpeed * Time.deltaTime);
+
         if (isGrounded())
         {
-            Rigidbody rigidbody = GetComponent<Rigidbody>();
-            
-            float torqueX = Input.GetAxis("Vertical");
-            float torqueY = 0f;
-            float torqueZ = -Input.GetAxis("Horizontal");
-
-            Vector3 torque = new Vector3(torqueX, torqueY, torqueZ);
-
-            torque = Camera.main.transform.TransformDirection(torque);
-            rigidbody.AddTorque(torque * movementSpeed * Time.deltaTime);
 
             // TODO: Change the jump impulse to a more reliable way of jumping.
             if (Input.GetButton("Jump"))
